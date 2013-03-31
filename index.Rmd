@@ -325,11 +325,20 @@ We can make your first plot a lot fancier if we want (hover your mouse over it):
 ```{r, results='asis', cache=TRUE, echo=FALSE}
 suppressPackageStartupMessages(library(googleVis))
 
-gvistempdata <- transform(soiltempdata, Time=strptime(paste0(Year, "-", Month, "-", Day, " ", sprintf("%02i", Hour), ":00:00"), tz="America/Anchorage", format="%Y-%m-%d %H:%M:%S"))
+soiltempdata <- read.csv("soiltempdata.csv", skip=16, na.strings=c(6999, 7777))
 
-names(gvistempdata)[grep("Depth.0.cm", names(gvistempdata), fixed=TRUE)] <- "Temperature"
+soiltempdata <- transform(soiltempdata, Time=strptime(paste0(Year, "-", Month, "-", Day, " ", sprintf("%02i", Hour), ":00:00"), tz="America/Anchorage", format="%Y-%m-%d %H:%M:%S"))
 
-M <- gvisLineChart(gvistempdata, xvar="Time", yvar="Temperature", options=list(width=1000, height=500, lineWidth=0.5, vAxis="{title:'Temperature'}", hAxis="{title:'Time'}", legend="none", title="Alaskan surface soil temperature"))
+depths <- paste0(c(0, 5, 10, 15, 20, 40, 60, 80, 100, 120, 135, 150), " cm")
+names(soiltempdata)[grep("^Depth", names(soiltempdata))] <- depths
+
+# Remove depth 100 as it's empty
+soiltempdata <- soiltempdata[, !grepl("100 cm", names(soiltempdata), fixed=TRUE)]
+newdepths <- depths[!grepl("100 cm", depths, fixed=TRUE)]
+
+# names(gvistempdata)[grep("Depth.0.cm", names(gvistempdata), fixed=TRUE)] <- "Temperature"
+
+M <- gvisLineChart(soiltempdata, xvar="Time", yvar=newdepths, options=list(width=1000, height=500, lineWidth=0.5, vAxis="{title:'Temperature'}", hAxis="{title:'Time'}", title="Alaskan surface soil temperature"))
 
 print(M, "chart")
 ```
