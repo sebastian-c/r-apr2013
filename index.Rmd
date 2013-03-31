@@ -12,6 +12,26 @@ widgets     : [mathjax, quiz, bootstrap] # {mathjax, quiz, bootstrap}
 mode        : selfcontained   # {standalone, draft}
 ---
 
+## What is R?
+
+R is an open-source statistical programming language. It is now widely used in both business and academia. It is both powerful and actively developed, so the number of add-on packages for it are constantly increasing.
+
+<img src="images/R logo.jpg" style="margin:0px auto;display:block">
+
+---
+
+## Why use R for spectroscopy?
+
+* R is free
+  * Other spectroscopy software (e.g. Unscrambler) can cost in the vicinity of $6000
+  * Other statistical software (SAS, SPSS) can cost around $3500/year
+  * These costs make it harder to share your analysis with others
+* R is the gift that keeps on giving
+  * Not just for spectroscopy: mapping, modelling, 
+    data manipulation, web applications...
+
+---
+
 ## Welcome to R
 
 ```{r setchunkoptions, cache=FALSE, include=FALSE}
@@ -282,10 +302,10 @@ trees[trees$Girth < 12.5, ]
 
 But how do I find out about all these functions? There are a few ways of getting help in R:
 
-- The default help functions. Try `?print` or `help(print)`
-- Other help functions: `RSiteSearch("soil")`
-- StackOverflow
-- The wonderful Google
+* The default help functions. Try `?print` or `help(print)`
+* Other help functions: `RSiteSearch("soil")`
+* StackOverflow
+* The wonderful Google
 
 At the moment, the help files will be fairly hard to get through, but they make more and more sense the more you use R. Some help files will be much simpler than others. If you find the help file impossible to get through, try testing the examples at the bottom of most help files or access them using the `examples` function.
 
