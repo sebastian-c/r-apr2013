@@ -736,17 +736,10 @@ greater82[1:5]
     <p>A plot is worth a thousand words... Well, R is capable of plotting data in many different ways. Let&#39;s start some basic function:</p>
 
 <h3>Histogram</h3>
-<<<<<<< HEAD
 
 <pre><code class="r">hist(trees[, 2])
 </code></pre>
 
-=======
-
-<pre><code class="r">hist(trees[, 2])
-</code></pre>
-
->>>>>>> e0e5cb6cdc08930dd3eff6c659eeb7a311e76089
 <p><img src="figure/unnamed-chunk-20.png" alt="plot of chunk unnamed-chunk-20"> </p>
 
   </article>
@@ -932,12 +925,8 @@ head(year_mean)
     <section>
       <p>Try how a monthly mean looks like!</p>
 
-<<<<<<< HEAD
 <pre><code>## Error: object &#39;month_mean&#39; not found
 </code></pre>
-=======
-<p><img src="figure/unnamed-chunk-31.png" alt="plot of chunk unnamed-chunk-31"> </p>
->>>>>>> e0e5cb6cdc08930dd3eff6c659eeb7a311e76089
 
     </section>
   </aside>
@@ -953,12 +942,8 @@ head(year_mean)
 <pre><code class="r">ggplot(data.co2_melt, aes(x = year, y = co2)) + geom_point()
 </code></pre>
 
-<<<<<<< HEAD
 <pre><code>## Error: could not find function &quot;ggplot&quot;
 </code></pre>
-=======
-<p><img src="figure/unnamed-chunk-32.png" alt="plot of chunk unnamed-chunk-32"> </p>
->>>>>>> e0e5cb6cdc08930dd3eff6c659eeb7a311e76089
 
   </article>
   <!-- Presenter Notes -->
@@ -974,12 +959,8 @@ head(year_mean)
 <pre><code class="r">ggplot(data.co2_melt, aes(x = year, y = co2, colour = month)) + geom_line()
 </code></pre>
 
-<<<<<<< HEAD
 <pre><code>## Error: could not find function &quot;ggplot&quot;
 </code></pre>
-=======
-<p><img src="figure/unnamed-chunk-33.png" alt="plot of chunk unnamed-chunk-33"> </p>
->>>>>>> e0e5cb6cdc08930dd3eff6c659eeb7a311e76089
 
   </article>
   <!-- Presenter Notes -->
@@ -995,40 +976,12 @@ head(year_mean)
 <pre><code class="r">ggplot(data.co2_melt, aes(x = year, y = co2)) + geom_line() + facet_wrap(~month)
 </code></pre>
 
-<<<<<<< HEAD
 <pre><code>## Error: could not find function &quot;ggplot&quot;
-=======
-<p><img src="figure/unnamed-chunk-34.png" alt="plot of chunk unnamed-chunk-34"> </p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-37" style="background:;">
-  <hgroup>
-    <h2>Linear models</h2>
-  </hgroup>
-  <article>
-    <p>If we want to check the behaviour of the carbon dioxid concentration over time, we can use the function &#39;lm()&#39;</p>
-
-<pre><code class="r">model_ &lt;- lm(co2 ~ year, data = data.co2_melt)
-model_
-</code></pre>
-
-<pre><code>## 
-## Call:
-## lm(formula = co2 ~ year, data = data.co2_melt)
-## 
-## Coefficients:
-## (Intercept)         year  
-##    -2255.11         1.31
->>>>>>> e0e5cb6cdc08930dd3eff6c659eeb7a311e76089
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
-<<<<<<< HEAD
 
       <slide class="" id="slide-37" style="background:;">
   <hgroup>
@@ -1167,122 +1120,6 @@ points(1997:2020, predictions, col = &quot;red&quot;)
 <pre><code class="r">setwd(&quot;path to directory&quot;)
 </code></pre>
 
-=======
-
-      <slide class="" id="slide-38" style="background:;">
-  <hgroup>
-    <h2>Getting things out of a linear model</h2>
-  </hgroup>
-  <article>
-    <p>We can access some important information using <code>summary()</code></p>
-
-<pre><code class="r">summary(model_)
-</code></pre>
-
-<pre><code>## 
-## Call:
-## lm(formula = co2 ~ year, data = data.co2_melt)
-## 
-## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -5.653 -1.807  0.053  1.695  6.405 
-## 
-## Coefficients:
-##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) -2.26e+03   1.99e+01    -113   &lt;2e-16 ***
-## year         1.31e+00   1.01e-02     130   &lt;2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
-## 
-## Residual standard error: 2.45 on 466 degrees of freedom
-## Multiple R-squared: 0.973,   Adjusted R-squared: 0.973 
-## F-statistic: 1.7e+04 on 1 and 466 DF,  p-value: &lt;2e-16
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-39" style="background:;">
-  <hgroup>
-    <h2>SS tables</h2>
-  </hgroup>
-  <article>
-    <p>We can produce familiar tables containing sum of squares and pvalues using the <code>anova()</code> function:</p>
-
-<pre><code class="r">anova(model_)
-</code></pre>
-
-<pre><code>## Analysis of Variance Table
-## 
-## Response: co2
-##            Df Sum Sq Mean Sq F value Pr(&gt;F)    
-## year        1 101808  101808   16978 &lt;2e-16 ***
-## Residuals 466   2794       6                   
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-40" style="background:;">
-  <hgroup>
-    <h2>Linear models: Plot</h2>
-  </hgroup>
-  <article>
-    <p>Let&#39;s plot the previous data and fitted linear model:</p>
-
-<pre><code class="r">plot(co2 ~ year, data = data.co2_melt)
-abline(model_, col = &quot;blue&quot;, lwd = 2)
-</code></pre>
-
-<p><img src="figure/unnamed-chunk-38.png" alt="plot of chunk unnamed-chunk-38"> </p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-41" style="background:;">
-  <hgroup>
-    <h2>Linear models: Predicting</h2>
-  </hgroup>
-  <article>
-    <p>What a horrible trend we have there... let&#39;s see what would happend until the year 2020 if we don&#39;t do something to change that...</p>
-
-<pre><code class="r">predictions &lt;- predict(model_, newdata = data.frame(year = 1997:2020))
-plot(co2 ~ year, data = data.co2_melt, xlim = c(min(data.co2_melt$year), 2020), 
-    ylim = c(min(data.co2_melt$co2), max(predictions)))
-points(1997:2020, predictions, col = &quot;red&quot;)
-</code></pre>
-
-<p><img src="figure/unnamed-chunk-39.png" alt="plot of chunk unnamed-chunk-39"> </p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-42" style="background:;">
-  <hgroup>
-    <h2>So, I am in spectroscopy workshop... but...</h2>
-  </hgroup>
-  <article>
-    <p>Ok, ok... We&#39;ll use some spectroscopy data to show you two last tasks you can do with R: loading data files and making your own functions.</p>
-
-<h3>Preparing R session</h3>
-
-<p>Let&#39;s prepare our session to work with our files:</p>
-
-<pre><code class="r">getwd()
-</code></pre>
-
-<p>Now set the working directory with the correct path using the function <code>setwd()</code>. If you are not sure how to do it, you can use the help for that command typing <code>?setwd</code>.</p>
-
-<pre><code class="r">setwd(&quot;path to directory&quot;)
-</code></pre>
-
->>>>>>> e0e5cb6cdc08930dd3eff6c659eeb7a311e76089
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -1292,11 +1129,7 @@ points(1997:2020, predictions, col = &quot;red&quot;)
     <h2>Loading data files</h2>
   </hgroup>
   <article>
-<<<<<<< HEAD
     <p>Let&#39;s take a look to the next <a href="https://raw.github.com/sebastian-c/r-apr2013/gh-pages/spec.zip">spectroscopy data</a> (save it in your computer).</p>
-=======
-    <p>Let&#39;s take a look to the next <a href="https://raw.github.com/sebastian-c/r-apr2013/gh-pages/kaolinite_cm9.11962.asc">spectroscopy data</a> (save it in your computer).</p>
->>>>>>> e0e5cb6cdc08930dd3eff6c659eeb7a311e76089
 
 <p>If we try directly with the function <code>read.table()</code></p>
 
