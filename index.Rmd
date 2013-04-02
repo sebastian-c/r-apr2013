@@ -182,7 +182,7 @@ If you think about it, you can treat numbers as letters, but it's a lot harder t
 
 ***pnotes
 
-Try to use the function `list()`. With this function you can combine any type of R objects.
+Try to use the function `list`. With this function you can combine any type of R objects.
 
 ```{r}
 list('a',c(1,2,3),matrix(1:4,2,2),list(2,'b'))
@@ -202,7 +202,7 @@ trees
 
 ## Structure of objects
 
-Another way of examining objects is the `str()` function
+Another way of examining objects is the `str` function
 
 ```{r}
 str(trees)
@@ -212,7 +212,7 @@ str(trees)
 
 ## Summaries
 
-More useful information about the dataframe's columns can be obtained using `summary()`:
+More useful information about the dataframe's columns can be obtained using `summary`:
 
 ```{r}
 summary(trees)
@@ -328,7 +328,7 @@ trees[trees$Girth < 12.5, ]
 
 ## Plotting data
 
-A plot is worth a thousand words... Well, R is capable of plotting data in many different ways. Let's start some basic function:
+A plot is worth a thousand words... R is capable of plotting data in many different ways. Let's start with a basic function:
 
 ### Histogram
 
@@ -340,20 +340,20 @@ hist(trees[,2])
 
 ## Making nice plots
 
-Let's use some extra arguments for the funtion `hist()`:
+Let's use some extra arguments for the function `hist`:
 
 ```{r}
-hist(trees[,2],xlab='Height',main='Our first plot!')
+hist(trees[, 2], xlab='Height', main='Our first plot!')
 ```
 
 ---
 
 ## Boxplots
 
-Another simple and useful plot is the boxplot. Remember that we can fix up those messy axis labels with the xlab and ylab arguments. We'll use another sample dataset (`CO2`) so remember to check its structure.
+Another simple and useful plot is the boxplot. Remember that we can fix up those messy axis labels with the xlab and ylab arguments. We'll use another sample dataset (`CO2`) so remember to check its structure. It's a dataset regarding CO<sub>2</sub> uptake in plants. You can find out more by using `?CO2`
 
 ```{r}
-boxplot(uptake~Plant,data=CO2,xlab='Plant',ylab=expression(CO[2]~'uptake'))
+boxplot(uptake ~ Plant, data=CO2, xlab='Plant', ylab=expression(CO[2]~'uptake'))
 ```
 
 ***pnotes
@@ -361,19 +361,19 @@ boxplot(uptake~Plant,data=CO2,xlab='Plant',ylab=expression(CO[2]~'uptake'))
 Try other combinations like:
 
 ```{r,eval=FALSE}
-boxplot(uptake~Type+Treatment,data=CO2)
+boxplot(uptake ~ Type + Treatment, data=CO2)
 ```
 
 ---
 
 ## What happen if our data is not organised as we want?
 
-Let's take a look to the dataset `co2` and modify it...
+Let's take a look to the dataset `co2`. This is a different dataset (R is case sensitive) and refers to CO<sub>2</sub> concentrations in ppm in Mauna Loa. Let's modify it into something to work with.
 
 ```{r}
-dim.names <- list(month.abb, unique(floor(time(co2))))
-data.co2 <- as.data.frame(t(matrix(co2, 12, dimnames = dim.names)),row.names=F)
-data.co2$year <- as.numeric(dim.names[[2]])
+data.co2 <- as.data.frame(matrix(co2, 12, byrow=TRUE), row.names=F)
+colnames(data.co2) <- month.abb
+data.co2$year <- unique(floor(time(co2)))
 head(data.co2)
 ```
 
@@ -391,15 +391,15 @@ library(reshape2)
 library(reshape2)
 ```
 
-R is free and there are many official packages available (check [CRAN list](http://cran.r-project.org/web/packages/available_packages_by_name.html)).
+R is free and there are many official packages available (check [CRAN](http://cran.r-project.org/web/packages/available_packages_by_name.html), the archive of R packages).
 
-Also many people create their own packages to distribute their work. Most of them are hosted in [github](http://github.com) or similar websites. In this workshop you will be using a custom package developed in this Department.
+Also many people create their own packages to distribute their work. Many of them are hosted in [github](http://github.com), [R-forge](http://r-forge.r-project.org/) or similar websites. Over the next couple of days you will be using a custom package developed in this department.
 
 ---
 
 ## Reshaping data
 
-Now we have the reshape2 package loaded in, we can use the `melt()` function to melt out dataframe. See the `?melt.data.frame` page for details. The `id.vars` are the variables we don't want to melt. The `.name` arguments control the column names of the result:
+Now we have the reshape2 package loaded in, we can use the `melt` function to melt out dataframe. See the `?melt.data.frame` page for details. The `id.vars` are the variables we don't want to melt. The `.name` arguments control the column names of the result:
 
 ```{r}
 data.co2_melt <- melt(data.co2,id.vars='year',variable.name='month',value.name='co2')
@@ -420,7 +420,7 @@ plot(co2~year,data=data.co2_melt)
 
 ## plyr
 
-Stacking out data has also made our data easier to summarise. We're going to use the `plyr` package. In particular, a function `ddply()` Let's start with something simple. Let's get the mean temperature for each Depth:
+Stacking the data has also made our data easier to summarise. We're going to use the `plyr` package. In particular, a function `ddply` Let's start with something simple. Let's get the mean temperature for each year:
 
 ```{r}
 library(plyr)
@@ -460,7 +460,7 @@ ggplot(data.co2_melt,aes(x=year,y=co2)) + geom_point()
 
 ## Adding some colour
 
-With a few modifications to the original code we can generate a much clear plot.
+With a few modifications to the original code we can generate a much clearer plot.
 
 ```{r}
 ggplot(data.co2_melt,aes(x=year,y=co2,colour=month)) + geom_line()
@@ -480,7 +480,7 @@ ggplot(data.co2_melt,aes(x=year,y=co2)) + geom_line() + facet_wrap(~month)
 
 ## Linear models
 
-If we want to check the behaviour of the carbon dioxid concentration over time, we can use the function 'lm()'
+If we want to check the behaviour of the CO<sub>2</sub> concentration over time, we can use the function 'lm()'
 
 ```{r}
 model_ <- lm(co2~year,data=data.co2_melt)
@@ -491,7 +491,7 @@ model_
 
 ## Getting things out of a linear model
 
-We can access some important information using `summary()`
+We can access some important information using `summary`
 
 ```{r}
 summary(model_)
@@ -501,7 +501,7 @@ summary(model_)
 
 ## SS tables
 
-We can produce familiar tables containing sum of squares and pvalues using the `anova()` function:
+We can produce familiar tables containing sum of squares and pvalues using the `anova` function:
 
 ```{r}
 anova(model_)
@@ -522,17 +522,18 @@ abline(model_,col="blue",lwd =2)
 
 ## Linear models: Predicting
 
-What a horrible trend we have there... let's see what would happend until the year 2020 if we don't do something to change that...
+What a horrible trend we have there... let's see what would happen up to the year 2020 if we don't do something to change that...
 
 ```{r}
-predictions <- predict(model_,newdata=data.frame(year=1997:2020))
-plot(co2~year,data=data.co2_melt,xlim=c(min(data.co2_melt$year),2020),ylim=c(min(data.co2_melt$co2),max(predictions)))
-points(1997:2020,predictions,col='red')
+predictions <- predict(model_, newdata=data.frame(year=1997:2020))
+plot(co2~year, data=data.co2_melt, xlim=c(min(data.co2_melt$year), 2020), 
+     ylim=c(min(data.co2_melt$co2), max(predictions)))
+points(1997:2020, predictions, col='red')
 ```
 
 ---
 
-## So, I am in spectroscopy workshop... but...
+## But isn't this a spectroscopy workshop?
 
 Ok, ok... We'll use some spectroscopy data to show you two last tasks you can do with R: loading data files and making your own functions.
 
@@ -544,7 +545,7 @@ Let's prepare our session to work with our files:
 getwd()
 ```
 
-Now set the working directory with the correct path using the function `setwd()`. If you are not sure how to do it, you can use the help for that command typing `?setwd`.
+Now set the working directory with the correct path using the function `setwd`. If you are not sure how to do it, you can use the help for that command typing `?setwd`.
 
 ```{r, eval=FALSE}
 setwd('path to directory')
@@ -556,7 +557,7 @@ setwd('path to directory')
 
 Let's take a look to the next [spectroscopy data](https://raw.github.com/sebastian-c/r-apr2013/gh-pages/spec.zip) (save it in your computer).
 
-If we try directly with the function `read.table()`
+If we try directly with the function `read.table`
 
 ```{r}
 spec_data <- read.table(file='kaolinite_cm9.11962.asc')
@@ -570,7 +571,7 @@ Relax... Let's open the file in an external text editor...
 
 ## Loading data files
 
-After checking the structure of the file we can use extra arguments for the funtion `read.table()`
+After checking the structure of the file we can use extra arguments for the funtion `read.table`
 
 ```{r}
 spec_data <- read.table(file='kaolinite_cm9.11962.asc', skip=16, na.strings = '-1.23e34', col.names = c('wavelength', 'reflectance','sd'))
@@ -582,7 +583,7 @@ head(spec_data)
 
 ## Do I have to do this every time?
 
-Usually we have to do tedious and repetitive tasks (like the one we just did). In those cases is recomended to create a function to automatise this process.
+Often we have to do tedious and repetitive tasks (like the one we just did). In those cases is recommended to create a function to automate this process.
 
 ```{r}
 read_spec <- function(.spectra_file){
@@ -615,7 +616,7 @@ head(illi,3)
 When you have a bit more R experience, you can make graphs like the following:
 
 * Dates
-* RGoogleVis (done)
+* RGoogleVis
 * This presentation
 * Soil graphs (from different data)
 * Map with points in R
