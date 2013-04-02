@@ -733,14 +733,12 @@ greater82[1:5]
     <h2>Plotting data</h2>
   </hgroup>
   <article>
-    <p>A plot is worth a thousand words... R is capable of plotting data in many different ways. Let&#39;s start with a basic function:</p>
-
-<h3>Histogram</h3>
+    <p>A plot is worth a thousand words... R is capable of plotting data in many different ways. Let&#39;s start with a basic function, plotting a <strong>histogram</strong>.</p>
 
 <pre><code class="r">hist(trees[, 2])
 </code></pre>
 
-<p><img src="figure/unnamed-chunk-20.png" alt="plot of chunk unnamed-chunk-20"> </p>
+<p><img src="figure/unnamed-chunk-20.svg" alt="plot of chunk unnamed-chunk-20"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -756,7 +754,7 @@ greater82[1:5]
 <pre><code class="r">hist(trees[, 2], xlab = &quot;Height&quot;, main = &quot;Our first plot!&quot;)
 </code></pre>
 
-<p><img src="figure/unnamed-chunk-21.png" alt="plot of chunk unnamed-chunk-21"> </p>
+<p><img src="figure/unnamed-chunk-21.svg" alt="plot of chunk unnamed-chunk-21"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -773,7 +771,7 @@ greater82[1:5]
     &quot;uptake&quot;))
 </code></pre>
 
-<p><img src="figure/unnamed-chunk-22.png" alt="plot of chunk unnamed-chunk-22"> </p>
+<p><img src="figure/unnamed-chunk-22.svg" alt="plot of chunk unnamed-chunk-22"> </p>
 
 
   </article>
@@ -796,45 +794,26 @@ greater82[1:5]
   <article>
     <p>Let&#39;s take a look to the dataset <code>co2</code>. This is a different dataset (R is case sensitive) and refers to CO<sub>2</sub> concentrations in ppm in Mauna Loa. Let&#39;s modify it into something to work with.</p>
 
-<pre><code class="r">data.co2 &lt;- as.data.frame(matrix(co2, 12, byrow = TRUE), row.names = F)
+<pre><code class="r">data.co2 &lt;- as.data.frame(matrix(co2, ncol = 12, byrow = TRUE), row.names = F)
 colnames(data.co2) &lt;- month.abb
 data.co2$year &lt;- unique(floor(time(co2)))
-</code></pre>
-
-<pre><code>## Error: replacement has 39 rows, data has 12
-</code></pre>
-
-<pre><code class="r">head(data.co2)
+head(data.co2)
 </code></pre>
 
 <pre><code>##     Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec
 ## 1 315.4 316.3 316.5 317.6 318.1 318.0 316.4 314.6 313.7 313.2 314.7 315.4
-## 2 320.4 320.9 320.4 319.4 317.2 316.1 315.3 316.5 317.5 318.6 318.9 319.7
-## 3 321.1 318.7 317.7 317.1 318.7 319.2 320.5 321.4 322.2 323.5 323.9 323.6
-## 4 320.1 321.2 322.7 323.8 324.3 325.5 326.5 327.2 326.5 325.7 323.5 322.2
-## 5 326.6 327.5 327.6 329.6 329.9 328.9 327.9 326.2 324.7 325.0 326.3 327.4
-## 6 333.1 333.8 333.4 331.7 329.9 328.4 328.2 329.3 330.6 331.6 332.4 333.3
-##      NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
-## 1 316.3 316.8 317.4 318.9 319.9 319.4 318.0 315.7 314.0 313.7 314.8 316.0
-## 2 321.2 322.1 321.3 319.6 317.6 316.1 315.8 316.9 318.2 319.4 320.1 320.7
-## 3 322.2 320.2 318.5 317.9 319.6 320.9 322.2 322.3 322.9 324.2 324.8 323.9
-## 4 321.6 322.7 323.9 324.9 325.8 326.8 328.0 327.9 327.5 326.2 324.5 322.9
-## 5 328.4 329.4 330.1 331.3 332.3 331.9 330.7 329.1 327.4 327.0 328.0 328.5
-## 6 334.4 334.7 334.2 332.9 330.8 329.1 328.8 330.1 331.5 332.8 333.2 334.5
-##      NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA    NA
-## 1 316.7 317.5 318.4 319.3 320.4 319.6 318.4 316.6 314.8 315.2 315.9 316.9
-## 2 321.4 322.1 321.7 320.3 318.5 316.5 316.7 317.5 318.6 319.3 320.3 320.7
-## 3 322.4 320.8 319.1 319.2 320.6 321.8 322.4 323.0 323.7 324.9 325.4 325.2
-## 4 322.9 323.9 325.0 326.0 326.5 327.0 327.6 328.8 328.4 327.2 325.3 323.2
-## 5 329.2 330.6 331.3 332.5 332.9 332.1 331.0 329.2 327.3 327.2 328.3 329.4
-## 6 335.9 336.6 336.1 334.8 332.6 331.4 331.0 332.2 333.7 334.8 335.2 336.5
-##      NA    NA    NA
-## 1 317.8 318.4 319.5
-## 2 322.0 322.0 321.7
-## 3 324.0 321.9 320.2
-## 4 323.4 324.6 325.9
-## 5 330.2 331.2 331.9
-## 6 337.6 337.8 337.7
+## 2 316.3 316.8 317.4 318.9 319.9 319.4 318.0 315.7 314.0 313.7 314.8 316.0
+## 3 316.7 317.5 318.4 319.3 320.4 319.6 318.4 316.6 314.8 315.2 315.9 316.9
+## 4 317.8 318.4 319.5 320.4 320.9 320.4 319.4 317.2 316.1 315.3 316.5 317.5
+## 5 318.6 318.9 319.7 321.2 322.1 321.3 319.6 317.6 316.1 315.8 316.9 318.2
+## 6 319.4 320.1 320.7 321.4 322.1 321.7 320.3 318.5 316.5 316.7 317.5 318.6
+##   year
+## 1 1959
+## 2 1960
+## 3 1961
+## 4 1962
+## 5 1963
+## 6 1964
 </code></pre>
 
   </article>
@@ -868,15 +847,16 @@ library(reshape2)
     <p>Now we have the reshape2 package loaded in, we can use the <code>melt</code> function to melt out dataframe. See the <code>?melt.data.frame</code> page for details. The <code>id.vars</code> are the variables we don&#39;t want to melt. The <code>.name</code> arguments control the column names of the result:</p>
 
 <pre><code class="r">data.co2_melt &lt;- melt(data.co2, id.vars = &quot;year&quot;, variable.name = &quot;month&quot;, value.name = &quot;co2&quot;)
+head(data.co2_melt)
 </code></pre>
 
-<pre><code>## Error: id variables not found in data: year
-</code></pre>
-
-<pre><code class="r">head(data.co2_melt)
-</code></pre>
-
-<pre><code>## Error: object &#39;data.co2_melt&#39; not found
+<pre><code>##   year month   co2
+## 1 1959   Jan 315.4
+## 2 1960   Jan 316.3
+## 3 1961   Jan 316.7
+## 4 1962   Jan 317.8
+## 5 1963   Jan 318.6
+## 6 1964   Jan 319.4
 </code></pre>
 
   </article>
@@ -893,8 +873,7 @@ library(reshape2)
 <pre><code class="r">plot(co2 ~ year, data = data.co2_melt)
 </code></pre>
 
-<pre><code>## Error: object &#39;data.co2_melt&#39; not found
-</code></pre>
+<p><img src="figure/unnamed-chunk-28.svg" alt="plot of chunk unnamed-chunk-28"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -909,15 +888,16 @@ library(reshape2)
 
 <pre><code class="r">library(plyr)
 year_mean &lt;- ddply(data.co2_melt, c(&quot;year&quot;), summarise, meanco2 = mean(co2))
+head(year_mean)
 </code></pre>
 
-<pre><code>## Error: object &#39;data.co2_melt&#39; not found
-</code></pre>
-
-<pre><code class="r">head(year_mean)
-</code></pre>
-
-<pre><code>## Error: object &#39;year_mean&#39; not found
+<pre><code>##   year meanco2
+## 1 1959   315.8
+## 2 1960   316.7
+## 3 1961   317.5
+## 4 1962   318.3
+## 5 1963   318.8
+## 6 1964   319.5
 </code></pre>
 
   </article>
@@ -934,8 +914,7 @@ year_mean &lt;- ddply(data.co2_melt, c(&quot;year&quot;), summarise, meanco2 = m
 <pre><code class="r">plot(meanco2 ~ year, data = year_mean)
 </code></pre>
 
-<pre><code>## Error: object &#39;year_mean&#39; not found
-</code></pre>
+<p><img src="figure/unnamed-chunk-30.svg" alt="plot of chunk unnamed-chunk-30"> </p>
 
 
   </article>
@@ -958,11 +937,11 @@ year_mean &lt;- ddply(data.co2_melt, c(&quot;year&quot;), summarise, meanco2 = m
   <article>
     <p><code>ggplot2</code> is a powerful package which allows you to build up complex plots from basic elements.</p>
 
-<pre><code class="r">ggplot(data.co2_melt, aes(x = year, y = co2)) + geom_point()
+<pre><code class="r">library(ggplot2)
+ggplot(data.co2_melt, aes(x = year, y = co2)) + geom_point()
 </code></pre>
 
-<pre><code>## Error: could not find function &quot;ggplot&quot;
-</code></pre>
+<p><img src="figure/unnamed-chunk-32.svg" alt="plot of chunk unnamed-chunk-32"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -978,8 +957,7 @@ year_mean &lt;- ddply(data.co2_melt, c(&quot;year&quot;), summarise, meanco2 = m
 <pre><code class="r">ggplot(data.co2_melt, aes(x = year, y = co2, colour = month)) + geom_line()
 </code></pre>
 
-<pre><code>## Error: could not find function &quot;ggplot&quot;
-</code></pre>
+<p><img src="figure/unnamed-chunk-33.svg" alt="plot of chunk unnamed-chunk-33"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -995,8 +973,7 @@ year_mean &lt;- ddply(data.co2_melt, c(&quot;year&quot;), summarise, meanco2 = m
 <pre><code class="r">ggplot(data.co2_melt, aes(x = year, y = co2)) + geom_line() + facet_wrap(~month)
 </code></pre>
 
-<pre><code>## Error: could not find function &quot;ggplot&quot;
-</code></pre>
+<p><img src="figure/unnamed-chunk-34.svg" alt="plot of chunk unnamed-chunk-34"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -1010,15 +987,16 @@ year_mean &lt;- ddply(data.co2_melt, c(&quot;year&quot;), summarise, meanco2 = m
     <p>If we want to check the behaviour of the CO<sub>2</sub> concentration over time, we can use the function &#39;lm()&#39;</p>
 
 <pre><code class="r">model_ &lt;- lm(co2 ~ year, data = data.co2_melt)
+model_
 </code></pre>
 
-<pre><code>## Error: object &#39;data.co2_melt&#39; not found
-</code></pre>
-
-<pre><code class="r">model_
-</code></pre>
-
-<pre><code>## Error: object &#39;model_&#39; not found
+<pre><code>## 
+## Call:
+## lm(formula = co2 ~ year, data = data.co2_melt)
+## 
+## Coefficients:
+## (Intercept)         year  
+##    -2255.11         1.31
 </code></pre>
 
   </article>
@@ -1035,7 +1013,24 @@ year_mean &lt;- ddply(data.co2_melt, c(&quot;year&quot;), summarise, meanco2 = m
 <pre><code class="r">summary(model_)
 </code></pre>
 
-<pre><code>## Error: object &#39;model_&#39; not found
+<pre><code>## 
+## Call:
+## lm(formula = co2 ~ year, data = data.co2_melt)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -5.653 -1.807  0.053  1.695  6.405 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -2.26e+03   1.99e+01    -113   &lt;2e-16 ***
+## year         1.31e+00   1.01e-02     130   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1 
+## 
+## Residual standard error: 2.45 on 466 degrees of freedom
+## Multiple R-squared: 0.973,   Adjusted R-squared: 0.973 
+## F-statistic: 1.7e+04 on 1 and 466 DF,  p-value: &lt;2e-16
 </code></pre>
 
   </article>
@@ -1052,7 +1047,14 @@ year_mean &lt;- ddply(data.co2_melt, c(&quot;year&quot;), summarise, meanco2 = m
 <pre><code class="r">anova(model_)
 </code></pre>
 
-<pre><code>## Error: object &#39;model_&#39; not found
+<pre><code>## Analysis of Variance Table
+## 
+## Response: co2
+##            Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## year        1 101808  101808   16978 &lt;2e-16 ***
+## Residuals 466   2794       6                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 </code></pre>
 
   </article>
@@ -1067,16 +1069,10 @@ year_mean &lt;- ddply(data.co2_melt, c(&quot;year&quot;), summarise, meanco2 = m
     <p>Let&#39;s plot the previous data and fitted linear model:</p>
 
 <pre><code class="r">plot(co2 ~ year, data = data.co2_melt)
+abline(model_, col = &quot;blue&quot;, lwd = 2)
 </code></pre>
 
-<pre><code>## Error: object &#39;data.co2_melt&#39; not found
-</code></pre>
-
-<pre><code class="r">abline(model_, col = &quot;blue&quot;, lwd = 2)
-</code></pre>
-
-<pre><code>## Error: object &#39;model_&#39; not found
-</code></pre>
+<p><img src="figure/unnamed-chunk-38.svg" alt="plot of chunk unnamed-chunk-38"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -1090,23 +1086,12 @@ year_mean &lt;- ddply(data.co2_melt, c(&quot;year&quot;), summarise, meanco2 = m
     <p>What a horrible trend we have there... let&#39;s see what would happen up to the year 2020 if we don&#39;t do something to change that...</p>
 
 <pre><code class="r">predictions &lt;- predict(model_, newdata = data.frame(year = 1997:2020))
-</code></pre>
-
-<pre><code>## Error: object &#39;model_&#39; not found
-</code></pre>
-
-<pre><code class="r">plot(co2 ~ year, data = data.co2_melt, xlim = c(min(data.co2_melt$year), 2020), 
+plot(co2 ~ year, data = data.co2_melt, xlim = c(min(data.co2_melt$year), 2020), 
     ylim = c(min(data.co2_melt$co2), max(predictions)))
+points(1997:2020, predictions, col = &quot;red&quot;)
 </code></pre>
 
-<pre><code>## Error: object &#39;data.co2_melt&#39; not found
-</code></pre>
-
-<pre><code class="r">points(1997:2020, predictions, col = &quot;red&quot;)
-</code></pre>
-
-<pre><code>## Error: object &#39;predictions&#39; not found
-</code></pre>
+<p><img src="figure/unnamed-chunk-39.svg" alt="plot of chunk unnamed-chunk-39"> </p>
 
   </article>
   <!-- Presenter Notes -->

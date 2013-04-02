@@ -37,7 +37,7 @@ R is an open-source statistical programming language. It is now widely used in b
 ```{r setchunkoptions, cache=FALSE, include=FALSE}
 library(knitr)
 library(knitcitations)
-opts_chunk$set(fig.width=14, fig.height=5)
+opts_chunk$set(fig.width=10, fig.height=4, dev="svg")
 bib <- read.bibtex("r-mar2013.bib")
 ```
 
@@ -328,9 +328,7 @@ trees[trees$Girth < 12.5, ]
 
 ## Plotting data
 
-A plot is worth a thousand words... R is capable of plotting data in many different ways. Let's start with a basic function:
-
-### Histogram
+A plot is worth a thousand words... R is capable of plotting data in many different ways. Let's start with a basic function, plotting a **histogram**.
 
 ```{r}
 hist(trees[,2])
@@ -371,7 +369,7 @@ boxplot(uptake ~ Type + Treatment, data=CO2)
 Let's take a look to the dataset `co2`. This is a different dataset (R is case sensitive) and refers to CO<sub>2</sub> concentrations in ppm in Mauna Loa. Let's modify it into something to work with.
 
 ```{r}
-data.co2 <- as.data.frame(matrix(co2, 12, byrow=TRUE), row.names=F)
+data.co2 <- as.data.frame(matrix(co2, ncol=12, byrow=TRUE), row.names=F)
 colnames(data.co2) <- month.abb
 data.co2$year <- unique(floor(time(co2)))
 head(data.co2)
@@ -453,6 +451,7 @@ plot(meanco2~as.numeric(month),data=month_mean)
 `ggplot2` is a powerful package which allows you to build up complex plots from basic elements.
 
 ```{r}
+library(ggplot2)
 ggplot(data.co2_melt,aes(x=year,y=co2)) + geom_point()
 ```
 
