@@ -1,7 +1,9 @@
-r-mar2013
+r-apr2013
 =========
 
-Tutorial for March R tutorial run by the Faculty of Agriculture and Environment at the University of Sydney. Made in [Slidify](http://slidify.org/).
+[See the tutorial!](http://sebastian-c.github.com/r-apr2013)
+
+Tutorial for April R tutorial run by the Faculty of Agriculture and Environment at the University of Sydney. Made in [Slidify](http://slidify.org/).
 
 ## Authors
 - Sebastian Campbell - University of Sydney
