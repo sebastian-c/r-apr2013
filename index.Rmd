@@ -37,7 +37,15 @@ R is an open-source statistical programming language. It is now widely used in b
 ```{r setchunkoptions, cache=FALSE, include=FALSE}
 library(knitr)
 library(knitcitations)
-opts_chunk$set(fig.width=10, fig.height=4, dev="svg")
+
+knit_hooks$set(lowuppermargin = function(before, options, envir) {
+    if (before) {
+        par(mar=c(5, 4, 1, 2) + 0.1)
+        }
+    })
+
+opts_chunk$set(fig.width=10, fig.height=4, dev="svg", lowuppermargin=TRUE)
+
 bib <- read.bibtex("r-mar2013.bib")
 ```
 
@@ -570,7 +578,7 @@ Relax... Let's open the file in an external text editor...
 
 ## Loading data files
 
-After checking the structure of the file we can use extra arguments for the funtion `read.table`
+After checking the structure of the file we can use extra arguments for the function `read.table`
 
 ```{r}
 spec_data <- read.table(file='kaolinite_cm9.11962.asc', skip=16, na.strings = '-1.23e34', col.names = c('wavelength', 'reflectance','sd'))
@@ -599,7 +607,7 @@ head(kaol)
 
 ## What about another file?
 
-If the other files have the same struture, you can keep using that funcion to read data in.
+If the other files have the same structure, you can keep using that function to read data in.
 
 ```{r}
 mont <- read_spec(.spectra_file='montmorillonite_sca2.14557.asc')

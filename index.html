@@ -1148,7 +1148,7 @@ points(1997:2020, predictions, col = &quot;red&quot;)
     <h2>Loading data files</h2>
   </hgroup>
   <article>
-    <p>After checking the structure of the file we can use extra arguments for the funtion <code>read.table</code></p>
+    <p>After checking the structure of the file we can use extra arguments for the function <code>read.table</code></p>
 
 <pre><code class="r">spec_data &lt;- read.table(file = &quot;kaolinite_cm9.11962.asc&quot;, skip = 16, na.strings = &quot;-1.23e34&quot;, 
     col.names = c(&quot;wavelength&quot;, &quot;reflectance&quot;, &quot;sd&quot;))
@@ -1205,7 +1205,7 @@ head(kaol)
     <h2>What about another file?</h2>
   </hgroup>
   <article>
-    <p>If the other files have the same struture, you can keep using that funcion to read data in.</p>
+    <p>If the other files have the same structure, you can keep using that function to read data in.</p>
 
 <pre><code class="r">mont &lt;- read_spec(.spectra_file = &quot;montmorillonite_sca2.14557.asc&quot;)
 head(mont, 3)
