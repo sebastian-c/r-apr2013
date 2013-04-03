@@ -42,7 +42,7 @@ knit_hooks$set(lowuppermargin = function(before, options, envir) {
     if (before) {
         par(mar=c(5, 4, 1, 2) + 0.1)
         }
-    })
+    }, webgl = hook_webgl)
 
 opts_chunk$set(fig.width=10, fig.height=4, dev="svg", lowuppermargin=TRUE)
 
@@ -684,6 +684,16 @@ Plot soil profiles locations:
 
 <iframe src="http://glimmer.rstudio.com/sebastianc/bulk_density/"></iframe>
 
+---
+
+## Interactive 3D graphs
+
+```{r testgl, webgl=TRUE}
+x <- sort(rnorm(1000))
+y <- rnorm(1000)
+z <- rnorm(1000) + atan2(x,y)
+plot3d(x, y, z, col=rainbow(1000))
+```
 ---
 
 ## This presentation!
