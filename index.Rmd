@@ -220,7 +220,7 @@ str(trees)
 
 ## Summaries
 
-More useful information about the dataframe's columns can be obtained using `summary`:
+More useful information about the data frame's columns can be obtained using `summary`:
 
 ```{r}
 summary(trees)
@@ -354,9 +354,9 @@ hist(trees[, 2], xlab='Height', main='Our first plot!')
 
 ---
 
-## Boxplots
+## Box plots
 
-Another simple and useful plot is the boxplot. Remember that we can fix up those messy axis labels with the xlab and ylab arguments. We'll use another sample dataset (`CO2`) so remember to check its structure. It's a dataset regarding CO<sub>2</sub> uptake in plants. You can find out more by using `?CO2`
+Another simple and useful plot is the box plot. Remember that we can fix up those messy axis labels with the xlab and ylab arguments. We'll use another sample dataset (`CO2`) so remember to check its structure. It's a dataset regarding CO<sub>2</sub> uptake in plants. You can find out more by using `?CO2`
 
 ```{r}
 boxplot(uptake ~ Plant, data=CO2, xlab='Plant', ylab=expression(CO[2]~'uptake'))
@@ -387,7 +387,7 @@ head(data.co2)
 
 ## Loading in packages
 
-For the next modification we will need to load a new library (and posibly install it!).
+For the next modification we will need to load a new library (and possibly install it!).
 
 ```{r,eval=FALSE}
 install.packages("reshape2")
@@ -405,7 +405,7 @@ Also many people create their own packages to distribute their work. Many of the
 
 ## Reshaping data
 
-Now we have the reshape2 package loaded in, we can use the `melt` function to melt out dataframe. See the `?melt.data.frame` page for details. The `id.vars` are the variables we don't want to melt. The `.name` arguments control the column names of the result:
+Now we have the reshape2 package loaded in, we can use the `melt` function to melt out data frame. See the `?melt.data.frame` page for details. The `id.vars` are the variables we don't want to melt. The `.name` arguments control the column names of the result:
 
 ```{r}
 data.co2_melt <- melt(data.co2,id.vars='year',variable.name='month',value.name='co2')
@@ -416,7 +416,7 @@ head(data.co2_melt)
 
 ## More plots
 
-Now that we have stacked data, it's much easier to make plots. For example, it's easy to make a simple scatterplot.
+Now that we have stacked data, it's much easier to make plots. For example, it's easy to make a simple scatter plot.
 
 ```{r}
 plot(co2~year,data=data.co2_melt)
@@ -487,7 +487,7 @@ ggplot(data.co2_melt,aes(x=year,y=co2)) + geom_line() + facet_wrap(~month)
 
 ## Linear models
 
-If we want to check the behaviour of the CO<sub>2</sub> concentration over time, we can use the function 'lm()'
+If we want to check the behaviour of the CO<sub>2</sub> concentration over time, we can use the function `lm`
 
 ```{r}
 model_ <- lm(co2~year,data=data.co2_melt)
@@ -508,7 +508,7 @@ summary(model_)
 
 ## SS tables
 
-We can produce familiar tables containing sum of squares and pvalues using the `anova` function:
+We can produce familiar tables containing sum of squares and p-values using the `anova` function:
 
 ```{r}
 anova(model_)
@@ -628,6 +628,33 @@ When you have a bit more R experience, you can make graphs like the following:
 * Soil graphs (from different data)
 * Map with points in R
 * More!
+
+---
+
+## googleVis
+
+We can make your first plot a lot fancier if we want (hover your mouse over it):
+
+```{r, results='asis', cache=TRUE, echo=FALSE}
+suppressPackageStartupMessages(library(googleVis))
+
+soiltempdata <- read.csv("soiltempdata.csv", skip=16, na.strings=c(6999, 7777))
+
+soiltempdata <- transform(soiltempdata, Time=strptime(paste0(Year, "-", Month, "-", Day, " ", sprintf("%02i", Hour), ":00:00"), tz="America/Anchorage", format="%Y-%m-%d %H:%M:%S"))
+
+depths <- paste0(c(0, 5, 10, 15, 20, 40, 60, 80, 100, 120, 135, 150), " cm")
+names(soiltempdata)[grep("^Depth", names(soiltempdata))] <- depths
+
+# Remove depth 100 as it's empty
+soiltempdata <- soiltempdata[, !grepl("100 cm", names(soiltempdata), fixed=TRUE)]
+newdepths <- depths[!grepl("100 cm", depths, fixed=TRUE)]
+
+# names(gvistempdata)[grep("Depth.0.cm", names(gvistempdata), fixed=TRUE)] <- "Temperature"
+
+M <- gvisLineChart(soiltempdata, xvar="Time", yvar=newdepths, options=list(width=1000, height=500, lineWidth=0.5, vAxis="{title:'Temperature'}", hAxis="{title:'Time'}", title="Alaskan surface soil temperature"))
+
+print(M, "chart")
+```
 
 ---
 
