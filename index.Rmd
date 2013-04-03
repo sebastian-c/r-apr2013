@@ -622,7 +622,7 @@ head(illi,3)
 
 When you have a bit more R experience, you can make graphs like the following:
 
-* Dates
+* Web applications
 * RGoogleVis
 * This presentation
 * Soil graphs (from different data)
@@ -677,6 +677,12 @@ Plot soil profiles locations:
 ## Images processing
 
 <img src="images/processing.png" style="margin:0px auto;display:block">
+
+---
+
+## Shiny
+
+<iframe src="http://glimmer.rstudio.com/sebastianc/bulk_density/"></iframe>
 
 ---
 
